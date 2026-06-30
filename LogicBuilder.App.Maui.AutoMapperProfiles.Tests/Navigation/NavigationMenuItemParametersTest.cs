@@ -1,17 +1,16 @@
-﻿using AutoMapper;
-using LogicBuilder.App.Maui.Forms.Configuration;
-using LogicBuilder.App.Maui.Forms.Parameters;
+using AutoMapper;
+using LogicBuilder.App.Maui.Forms.Configuration.Navigation;
+using LogicBuilder.App.Maui.Forms.Parameters.Navigation;
 using LogicBuilder.EntityFrameworkCore.Mapping;
-using LogicBuilder.Forms.Parameters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Diagnostics.CodeAnalysis;
 
-namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
+namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests.Navigation
 {
-    public class CommandButtonParametersTest
+    public class NavigationMenuItemParametersTest
     {
-        static CommandButtonParametersTest()
+        static NavigationMenuItemParametersTest()
         {
             Initialize();
         }
@@ -23,44 +22,30 @@ namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
         public void ConstructorShouldInitializeAllProperties()
         {
             // Arrange
-            string command = "SubmitCommand";
-            string buttonIcon = "Save";
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-
-            // Act
-            var parameters = new CommandButtonParameters(
-                command: command,
-                buttonIcon: buttonIcon
-            );
-            CommandButtonDescriptor descriptor = mapper.Map<CommandButtonDescriptor>(parameters);
-
-            // Assert
-            Assert.Equal(command, descriptor.Command);
-            Assert.Equal(buttonIcon, descriptor.ButtonIcon);
-        }
-
-        [Fact]
-        public void Map_ConnectorParameters_To_CommandButtonDescriptor()
-        {
-            // Arrange
-            ConnectorParameters parameters = new()
+            string initialModule = "initial";
+            string text = "menuText";
+            string icon = "Home";
+            var subItems = new List<NavigationMenuItemParameters>
             {
-                Id = 1,
-                ShortString = "EDT",
-                LongString = "Edit",
-                ConnectorData = new CommandButtonParameters("SubmitCommand", "Save")
+                new("submenu", "SubMenu", "List")
             };
             IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
 
             // Act
-            CommandButtonDescriptor button = mapper.Map<CommandButtonDescriptor>(parameters);
+            var parameters = new NavigationMenuItemParameters(
+                initialModule: initialModule,
+                text: text,
+                icon: icon,
+                active: true,
+                SubItems: subItems
+            );
+            var descriptor = mapper.Map<NavigationMenuItemDescriptor>(parameters);
 
             // Assert
-            Assert.Equal(1, button.Id);
-            Assert.Equal("EDT", button.ShortString);
-            Assert.Equal("Edit", button.LongString);
-            Assert.Equal("Save", button.ButtonIcon);
-            Assert.Equal("SubmitCommand", button.Command);
+            Assert.Equal(initialModule, descriptor.InitialModule);
+            Assert.Equal(text, descriptor.Text);
+            Assert.Equal(icon, descriptor.Icon);
+            Assert.Equal(subItems[0].Text, descriptor.SubItems[0].Text);
         }
 
         #region Helpers

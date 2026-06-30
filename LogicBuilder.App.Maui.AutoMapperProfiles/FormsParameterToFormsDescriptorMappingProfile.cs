@@ -22,42 +22,46 @@ namespace LogicBuilder.App.Maui.AutoMapperProfiles
 {
     public class FormsParameterToFormsDescriptorMappingProfile : Profile
     {
-		private const string modelType = "modelType";
+        private const string dataType = "dataType";
+        private const string modelType = "modelType";
+        private const string dataReturnType = "dataReturnType";
+        private const string modelReturnType = "modelReturnType";
+        private const string type = "type";
         public FormsParameterToFormsDescriptorMappingProfile()
         {
 			CreateMap<DataFormSettingsParameters, DataFormSettingsDescriptor>()
                 .ForCtorParam(modelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
 			CreateMap<DirectiveArgumentParameters, DirectiveArgumentDescriptor>()
-                .ForCtorParam("type", opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
+                .ForCtorParam(type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<DirectiveDefinitionParameters, DirectiveDefinitionDescriptor>();
 			CreateMap<DirectiveParameters, DirectiveDescriptor>();
 			CreateMap<DropDownItemBindingParameters, DropDownItemBindingDescriptor>();
             CreateMap<DropdownSelectorControlSettingsParameters, DropdownSelectorControlSettingsDescriptor>()
-                .ForCtorParam("type", opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
+                .ForCtorParam(type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
             CreateMap<DropDownTemplateParameters, DropDownTemplateDescriptor>();
 			CreateMap<FieldValidationSettingsParameters, FieldValidationSettingsDescriptor>();
 			CreateMap<FormattedLabelItemParameters, FormattedLabelItemDescriptor>();
 			CreateMap<FormGroupArraySettingsParameters, FormGroupArraySettingsDescriptor>()
                 .ForCtorParam(modelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName))
-                .ForCtorParam("type", opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
+                .ForCtorParam(type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<FormGroupBoxSettingsParameters, FormGroupBoxSettingsDescriptor>();
 			CreateMap<FormGroupSettingsParameters, FormGroupSettingsDescriptor>()
                 .ForCtorParam(modelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
 			CreateMap<FormGroupTemplateParameters, FormGroupTemplateDescriptor>();
 			CreateMap<FormRequestDetailsParameters, FormRequestDetailsDescriptor>()
                 .ForCtorParam(modelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName))
-                .ForCtorParam("dataType", opts => opts.MapFrom(x => x.DataType.AssemblyQualifiedName));
+                .ForCtorParam(dataType, opts => opts.MapFrom(x => x.DataType.AssemblyQualifiedName));
 			CreateMap<FormsCollectionDisplayTemplateParameters, FormsCollectionDisplayTemplateDescriptor>();
 			CreateMap<HyperLinkLabelItemParameters, HyperLinkLabelItemDescriptor>();
 			CreateMap<HyperLinkSpanItemParameters, HyperLinkSpanItemDescriptor>();
             CreateMap<InputFieldControlSettingsParameters, InputFieldControlSettingsDescriptor>()
-                .ForCtorParam("type", opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
+                .ForCtorParam(type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
             CreateMap<LabelItemParameters, LabelItemDescriptor>();
 			CreateMap<ListFormSettingsParameters, ListFormSettingsDescriptor>()
                 .ForCtorParam(modelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
 			CreateMap<MultiBindingParameters, MultiBindingDescriptor>();
 			CreateMap<MultiSelectFormControlSettingsParameters, MultiSelectFormControlSettingsDescriptor>()
-                .ForCtorParam("type", opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
+                .ForCtorParam(type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<MultiSelectItemBindingParameters, MultiSelectItemBindingDescriptor>();
 			CreateMap<MultiSelectTemplateParameters, MultiSelectTemplateDescriptor>()
                 .ForCtorParam(modelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
@@ -65,9 +69,9 @@ namespace LogicBuilder.App.Maui.AutoMapperProfiles
 			CreateMap<NavigationMenuItemParameters, NavigationMenuItemDescriptor>();
 			CreateMap<RequestDetailsParameters, RequestDetailsDescriptor>()
                 .ForCtorParam(modelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName))
-                .ForCtorParam("dataType", opts => opts.MapFrom(x => x.DataType.AssemblyQualifiedName))
-                .ForCtorParam("modelReturnType", opts => opts.MapFrom(x => x.ModelReturnType.AssemblyQualifiedName))
-                .ForCtorParam("dataReturnType", opts => opts.MapFrom(x => x.DataReturnType.AssemblyQualifiedName));
+                .ForCtorParam(dataType, opts => opts.MapFrom(x => x.DataType.AssemblyQualifiedName))
+                .ForCtorParam(modelReturnType, opts => opts.MapFrom(x => x.ModelReturnType.AssemblyQualifiedName))
+                .ForCtorParam(dataReturnType, opts => opts.MapFrom(x => x.DataReturnType.AssemblyQualifiedName));
 			CreateMap<SearchFilterGroupParameters, SearchFilterGroupDescriptor>();
 			CreateMap<SearchFilterParameters, SearchFilterDescriptor>();
 			CreateMap<SearchFormSettingsParameters, SearchFormSettingsDescriptor>()
@@ -80,7 +84,7 @@ namespace LogicBuilder.App.Maui.AutoMapperProfiles
 			CreateMap<ValidationMessageParameters, ValidationMessageDescriptor>();
 			CreateMap<ValidationRuleParameters, ValidationRuleDescriptor>();
 			CreateMap<ValidatorArgumentParameters, ValidatorArgumentDescriptor>()
-                .ForCtorParam("type", opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
+                .ForCtorParam(type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<ValidatorDefinitionParameters, ValidatorDefinitionDescriptor>();
 			CreateMap<VariableDirectivesParameters, VariableDirectivesDescriptor>();
 

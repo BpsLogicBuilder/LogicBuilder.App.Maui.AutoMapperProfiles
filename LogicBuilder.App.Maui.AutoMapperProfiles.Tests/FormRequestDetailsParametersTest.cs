@@ -1,17 +1,18 @@
-﻿using AutoMapper;
+using AutoMapper;
 using LogicBuilder.App.Maui.Forms.Configuration;
 using LogicBuilder.App.Maui.Forms.Parameters;
 using LogicBuilder.EntityFrameworkCore.Mapping;
-using LogicBuilder.Forms.Parameters;
+using LogicBuilder.Forms.Parameters.Expansions;
+using LogicBuilder.Forms.Parameters.Expressions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Diagnostics.CodeAnalysis;
 
 namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
 {
-    public class CommandButtonParametersTest
+    public class FormRequestDetailsParametersTest
     {
-        static CommandButtonParametersTest()
+        static FormRequestDetailsParametersTest()
         {
             Initialize();
         }
@@ -23,44 +24,38 @@ namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
         public void ConstructorShouldInitializeAllProperties()
         {
             // Arrange
-            string command = "SubmitCommand";
-            string buttonIcon = "Save";
+            string getUrl = "api/Entity/GetEntity";
+            string addUrl = "api/Student/Save";
+            string updateUrl = "api/Student/Save";
+            string deleteUrl = "api/Student/Delete";
+            Type modelType = typeof(string);
+            Type dataType = typeof(int);
+            var filter = new FilterLambdaOperatorParameters(null!, null!, null!);
+            var selectExpandDefinition = new SelectExpandDefinitionParameters([], null!);
             IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
 
             // Act
-            var parameters = new CommandButtonParameters(
-                command: command,
-                buttonIcon: buttonIcon
+            var parameters = new FormRequestDetailsParameters(
+                getUrl: getUrl,
+                addUrl: addUrl,
+                updateUrl: updateUrl,
+                deleteUrl: deleteUrl,
+                modelType: modelType,
+                dataType: dataType,
+                filter: filter,
+                selectExpandDefinition: selectExpandDefinition
             );
-            CommandButtonDescriptor descriptor = mapper.Map<CommandButtonDescriptor>(parameters);
+            var descriptor = mapper.Map<FormRequestDetailsDescriptor>(parameters);
 
             // Assert
-            Assert.Equal(command, descriptor.Command);
-            Assert.Equal(buttonIcon, descriptor.ButtonIcon);
-        }
-
-        [Fact]
-        public void Map_ConnectorParameters_To_CommandButtonDescriptor()
-        {
-            // Arrange
-            ConnectorParameters parameters = new()
-            {
-                Id = 1,
-                ShortString = "EDT",
-                LongString = "Edit",
-                ConnectorData = new CommandButtonParameters("SubmitCommand", "Save")
-            };
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-
-            // Act
-            CommandButtonDescriptor button = mapper.Map<CommandButtonDescriptor>(parameters);
-
-            // Assert
-            Assert.Equal(1, button.Id);
-            Assert.Equal("EDT", button.ShortString);
-            Assert.Equal("Edit", button.LongString);
-            Assert.Equal("Save", button.ButtonIcon);
-            Assert.Equal("SubmitCommand", button.Command);
+            Assert.Equal(getUrl, descriptor.GetUrl);
+            Assert.Equal(addUrl, descriptor.AddUrl);
+            Assert.Equal(updateUrl, descriptor.UpdateUrl);
+            Assert.Equal(deleteUrl, descriptor.DeleteUrl);
+            Assert.Equal(modelType.AssemblyQualifiedName, descriptor.ModelType);
+            Assert.Equal(dataType.AssemblyQualifiedName, descriptor.DataType);
+            Assert.Equal(filter.ParameterName, descriptor.Filter!.ParameterName);
+            Assert.Equal(selectExpandDefinition.Selects.Count, descriptor.SelectExpandDefinition!.Selects.Count);
         }
 
         #region Helpers

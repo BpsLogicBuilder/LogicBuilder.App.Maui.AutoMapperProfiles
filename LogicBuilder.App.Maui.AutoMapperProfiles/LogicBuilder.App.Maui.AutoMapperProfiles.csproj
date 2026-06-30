@@ -37,7 +37,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="16.1.1" />
-    <PackageReference Include="LogicBuilder.App.Maui.Forms.Configuration" Version="1.0.1" />
+    <PackageReference Include="LogicBuilder.App.Maui.Forms.Configuration" Version="1.0.2" />
     <PackageReference Include="LogicBuilder.App.Maui.Forms.Parameters" Version="1.0.1" />
   </ItemGroup>
 

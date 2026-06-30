@@ -1,17 +1,16 @@
-﻿using AutoMapper;
-using LogicBuilder.App.Maui.Forms.Configuration;
-using LogicBuilder.App.Maui.Forms.Parameters;
+using AutoMapper;
+using LogicBuilder.App.Maui.Forms.Configuration.TextForm;
+using LogicBuilder.App.Maui.Forms.Parameters.TextForm;
 using LogicBuilder.EntityFrameworkCore.Mapping;
-using LogicBuilder.Forms.Parameters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Diagnostics.CodeAnalysis;
 
-namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
+namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests.TextForm
 {
-    public class CommandButtonParametersTest
+    public class HyperLinkSpanItemParametersTest
     {
-        static CommandButtonParametersTest()
+        static HyperLinkSpanItemParametersTest()
         {
             Initialize();
         }
@@ -23,44 +22,20 @@ namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
         public void ConstructorShouldInitializeAllProperties()
         {
             // Arrange
-            string command = "SubmitCommand";
-            string buttonIcon = "Save";
+            string text = "Link text";
+            string url = "http://example.com";
             IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
 
             // Act
-            var parameters = new CommandButtonParameters(
-                command: command,
-                buttonIcon: buttonIcon
+            var parameters = new HyperLinkSpanItemParameters(
+                text: text,
+                url: url
             );
-            CommandButtonDescriptor descriptor = mapper.Map<CommandButtonDescriptor>(parameters);
+            var descriptor = mapper.Map<HyperLinkSpanItemDescriptor>(parameters);
 
             // Assert
-            Assert.Equal(command, descriptor.Command);
-            Assert.Equal(buttonIcon, descriptor.ButtonIcon);
-        }
-
-        [Fact]
-        public void Map_ConnectorParameters_To_CommandButtonDescriptor()
-        {
-            // Arrange
-            ConnectorParameters parameters = new()
-            {
-                Id = 1,
-                ShortString = "EDT",
-                LongString = "Edit",
-                ConnectorData = new CommandButtonParameters("SubmitCommand", "Save")
-            };
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-
-            // Act
-            CommandButtonDescriptor button = mapper.Map<CommandButtonDescriptor>(parameters);
-
-            // Assert
-            Assert.Equal(1, button.Id);
-            Assert.Equal("EDT", button.ShortString);
-            Assert.Equal("Edit", button.LongString);
-            Assert.Equal("Save", button.ButtonIcon);
-            Assert.Equal("SubmitCommand", button.Command);
+            Assert.Equal(text, descriptor.Text);
+            Assert.Equal(url, descriptor.Url);
         }
 
         #region Helpers
