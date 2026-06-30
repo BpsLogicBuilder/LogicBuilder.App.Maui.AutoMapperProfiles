@@ -1,17 +1,19 @@
-﻿using AutoMapper;
-using LogicBuilder.App.Maui.Forms.Configuration;
-using LogicBuilder.App.Maui.Forms.Parameters;
+using AutoMapper;
+using LogicBuilder.App.Maui.Forms.Configuration.Directives;
+using LogicBuilder.App.Maui.Forms.Parameters.Directives;
 using LogicBuilder.EntityFrameworkCore.Mapping;
-using LogicBuilder.Forms.Parameters;
+using LogicBuilder.Expressions.Utils.ExpressionDescriptors;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
-namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
+namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests.Directives
 {
-    public class CommandButtonParametersTest
+    public class DirectiveDefinitionParametersTest
     {
-        static CommandButtonParametersTest()
+        static DirectiveDefinitionParametersTest()
         {
             Initialize();
         }
@@ -23,44 +25,27 @@ namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
         public void ConstructorShouldInitializeAllProperties()
         {
             // Arrange
-            string command = "SubmitCommand";
-            string buttonIcon = "Save";
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-
-            // Act
-            var parameters = new CommandButtonParameters(
-                command: command,
-                buttonIcon: buttonIcon
-            );
-            CommandButtonDescriptor descriptor = mapper.Map<CommandButtonDescriptor>(parameters);
-
-            // Assert
-            Assert.Equal(command, descriptor.Command);
-            Assert.Equal(buttonIcon, descriptor.ButtonIcon);
-        }
-
-        [Fact]
-        public void Map_ConnectorParameters_To_CommandButtonDescriptor()
-        {
-            // Arrange
-            ConnectorParameters parameters = new()
+            string className = "HideIf";
+            string functionName = "Check";
+            var arguments = new List<DirectiveArgumentParameters>
             {
-                Id = 1,
-                ShortString = "EDT",
-                LongString = "Edit",
-                ConnectorData = new CommandButtonParameters("SubmitCommand", "Save")
+                new("arg1", "value1", typeof(string))
             };
             IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
 
             // Act
-            CommandButtonDescriptor button = mapper.Map<CommandButtonDescriptor>(parameters);
+            var parameters = new DirectiveDefinitionParameters(
+                className: className,
+                functionName: functionName,
+                arguments: arguments
+            );
+            var descriptor = mapper.Map<DirectiveDefinitionDescriptor>(parameters);
 
             // Assert
-            Assert.Equal(1, button.Id);
-            Assert.Equal("EDT", button.ShortString);
-            Assert.Equal("Edit", button.LongString);
-            Assert.Equal("Save", button.ButtonIcon);
-            Assert.Equal("SubmitCommand", button.Command);
+            Assert.Equal(className, descriptor.ClassName);
+            Assert.Equal(functionName, descriptor.FunctionName);
+            Assert.Single(descriptor.Arguments!);
+            Assert.Equal("arg1", descriptor.Arguments!["arg1"].Name);
         }
 
         #region Helpers

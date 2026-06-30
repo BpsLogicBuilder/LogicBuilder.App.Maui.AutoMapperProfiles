@@ -37,8 +37,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="16.1.1" />
-    <PackageReference Include="LogicBuilder.App.Maui.Forms.Configuration" Version="1.0.1" />
+    <PackageReference Include="LogicBuilder.App.Maui.Forms.Configuration" Version="1.0.2" />
     <PackageReference Include="LogicBuilder.App.Maui.Forms.Parameters" Version="1.0.1" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="All" />
+		<PackageReference Include="MinVer" Version="7.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
   </ItemGroup>
 
 </Project>

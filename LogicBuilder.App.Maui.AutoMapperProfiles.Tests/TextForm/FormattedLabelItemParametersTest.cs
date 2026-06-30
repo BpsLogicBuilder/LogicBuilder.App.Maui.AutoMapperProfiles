@@ -1,17 +1,16 @@
-﻿using AutoMapper;
-using LogicBuilder.App.Maui.Forms.Configuration;
-using LogicBuilder.App.Maui.Forms.Parameters;
+using AutoMapper;
+using LogicBuilder.App.Maui.Forms.Configuration.TextForm;
+using LogicBuilder.App.Maui.Forms.Parameters.TextForm;
 using LogicBuilder.EntityFrameworkCore.Mapping;
-using LogicBuilder.Forms.Parameters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Diagnostics.CodeAnalysis;
 
-namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
+namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests.TextForm
 {
-    public class CommandButtonParametersTest
+    public class FormattedLabelItemParametersTest
     {
-        static CommandButtonParametersTest()
+        static FormattedLabelItemParametersTest()
         {
             Initialize();
         }
@@ -23,44 +22,22 @@ namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
         public void ConstructorShouldInitializeAllProperties()
         {
             // Arrange
-            string command = "SubmitCommand";
-            string buttonIcon = "Save";
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-
-            // Act
-            var parameters = new CommandButtonParameters(
-                command: command,
-                buttonIcon: buttonIcon
-            );
-            CommandButtonDescriptor descriptor = mapper.Map<CommandButtonDescriptor>(parameters);
-
-            // Assert
-            Assert.Equal(command, descriptor.Command);
-            Assert.Equal(buttonIcon, descriptor.ButtonIcon);
-        }
-
-        [Fact]
-        public void Map_ConnectorParameters_To_CommandButtonDescriptor()
-        {
-            // Arrange
-            ConnectorParameters parameters = new()
+            var items = new List<ISpanItemParameters>
             {
-                Id = 1,
-                ShortString = "EDT",
-                LongString = "Edit",
-                ConnectorData = new CommandButtonParameters("SubmitCommand", "Save")
+                new SpanItemParameters("Span text"),
+                new HyperLinkSpanItemParameters("Link text", "http://example.com")
             };
             IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
 
             // Act
-            CommandButtonDescriptor button = mapper.Map<CommandButtonDescriptor>(parameters);
+            var parameters = new FormattedLabelItemParameters(
+                items: items
+            );
+            var descriptor = mapper.Map<FormattedLabelItemDescriptor>(parameters);
 
             // Assert
-            Assert.Equal(1, button.Id);
-            Assert.Equal("EDT", button.ShortString);
-            Assert.Equal("Edit", button.LongString);
-            Assert.Equal("Save", button.ButtonIcon);
-            Assert.Equal("SubmitCommand", button.Command);
+            Assert.Equal(((SpanItemParameters)items[0]).Text, ((SpanItemDescriptor)descriptor.Items[0]).Text);
+            Assert.Equal(2, descriptor.Items.Count);
         }
 
         #region Helpers

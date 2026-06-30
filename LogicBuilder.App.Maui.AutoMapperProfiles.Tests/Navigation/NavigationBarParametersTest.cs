@@ -1,17 +1,16 @@
-﻿using AutoMapper;
-using LogicBuilder.App.Maui.Forms.Configuration;
-using LogicBuilder.App.Maui.Forms.Parameters;
+using AutoMapper;
+using LogicBuilder.App.Maui.Forms.Configuration.Navigation;
+using LogicBuilder.App.Maui.Forms.Parameters.Navigation;
 using LogicBuilder.EntityFrameworkCore.Mapping;
-using LogicBuilder.Forms.Parameters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Diagnostics.CodeAnalysis;
 
-namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
+namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests.Navigation
 {
-    public class CommandButtonParametersTest
+    public class NavigationBarParametersTest
     {
-        static CommandButtonParametersTest()
+        static NavigationBarParametersTest()
         {
             Initialize();
         }
@@ -23,44 +22,48 @@ namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
         public void ConstructorShouldInitializeAllProperties()
         {
             // Arrange
-            string command = "SubmitCommand";
-            string buttonIcon = "Save";
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-
-            // Act
-            var parameters = new CommandButtonParameters(
-                command: command,
-                buttonIcon: buttonIcon
-            );
-            CommandButtonDescriptor descriptor = mapper.Map<CommandButtonDescriptor>(parameters);
-
-            // Assert
-            Assert.Equal(command, descriptor.Command);
-            Assert.Equal(buttonIcon, descriptor.ButtonIcon);
-        }
-
-        [Fact]
-        public void Map_ConnectorParameters_To_CommandButtonDescriptor()
-        {
-            // Arrange
-            ConnectorParameters parameters = new()
+            string brandText = "Contoso";
+            string currentModule = "initial";
+            var menuItems = new List<NavigationMenuItemParameters>
             {
-                Id = 1,
-                ShortString = "EDT",
-                LongString = "Edit",
-                ConnectorData = new CommandButtonParameters("SubmitCommand", "Save")
+                new("home", "Home", "Home")
             };
             IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
 
             // Act
-            CommandButtonDescriptor button = mapper.Map<CommandButtonDescriptor>(parameters);
+            var parameters = new NavigationBarParameters(
+                brandText: brandText,
+                currentModule: currentModule,
+                MenuItems: menuItems
+            );
+            var descriptor = mapper.Map<NavigationBarDescriptor>(parameters);
 
             // Assert
-            Assert.Equal(1, button.Id);
-            Assert.Equal("EDT", button.ShortString);
-            Assert.Equal("Edit", button.LongString);
-            Assert.Equal("Save", button.ButtonIcon);
-            Assert.Equal("SubmitCommand", button.Command);
+            Assert.Equal(brandText, descriptor.BrandText);
+            Assert.Equal(currentModule, descriptor.CurrentModule);
+            Assert.Equal(menuItems[0].Text, descriptor.MenuItems[0].Text);
+        }
+
+        [Fact]
+        public void ConstructorShouldInitializeAllPropertiesWhenMenuItemsIsNull()
+        {
+            // Arrange
+            string brandText = "Contoso";
+            string currentModule = "initial";
+            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
+
+            // Act
+            var parameters = new NavigationBarParameters(
+                brandText: brandText,
+                currentModule: currentModule,
+                MenuItems: null
+            );
+            var descriptor = mapper.Map<NavigationBarDescriptor>(parameters);
+
+            // Assert
+            Assert.Equal(brandText, descriptor.BrandText);
+            Assert.Equal(currentModule, descriptor.CurrentModule);
+            Assert.Empty(descriptor.MenuItems);
         }
 
         #region Helpers
