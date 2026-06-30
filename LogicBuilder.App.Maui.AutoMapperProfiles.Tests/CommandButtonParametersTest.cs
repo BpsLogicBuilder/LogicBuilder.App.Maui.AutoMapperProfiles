@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LogicBuilder.App.Maui.Forms.Configuration;
 using LogicBuilder.App.Maui.Forms.Parameters;
+using LogicBuilder.EntityFrameworkCore.Mapping;
 using LogicBuilder.Forms.Parameters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -71,6 +72,8 @@ namespace LogicBuilder.App.Maui.AutoMapperProfiles.Tests
             {
                 cfg.AddProfile<CommandButtonProfile>();
                 cfg.AddProfile<FormsParameterToFormsDescriptorMappingProfile>();
+                cfg.AddProfile<ExpansionParameterToDescriptorMappingProfile>();
+                cfg.AddProfile<ExpressionParameterToDescriptorMappingProfile>();
             }, NullLoggerFactory.Instance);
 
             serviceProvider ??= new ServiceCollection()
