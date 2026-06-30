@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+		<PackageId>LogicBuilder.App.Maui.AutoMapperProfiles</PackageId>
+		<Authors>BlaiseD</Authors>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<WarningsAsErrors>true</WarningsAsErrors>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<Description>This library serves as a shared location for mapping profiles which map the parameters encapsulating the form features defined in the logic builder to the serializable descriptors used to implement those features in a .NET MAUI application at runtime.</Description>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageReleaseNotes>First release.</PackageReleaseNotes>
+		<PackageTags>form configuration</PackageTags>
+		<Copyright>Copyright © BPS 2026</Copyright>
+		<RepositoryUrl>https://github.com/BpsLogicBuilder/LogicBuilder.App.Maui.AutoMapperProfiles</RepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/BpsLogicBuilder/LogicBuilder</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+		<AssemblyOriginatorKeyFile>..\LogicBuilder.Rules.snk</AssemblyOriginatorKeyFile>
+		<SignAssembly>true</SignAssembly>
+		<MinVerTagPrefix>v</MinVerTagPrefix>
+		<DebugType>embedded</DebugType>
+		<Deterministic>true</Deterministic>
+		<EmbedAllSources>true</EmbedAllSources>
+		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="16.1.1" />
+    <PackageReference Include="LogicBuilder.App.Maui.Forms.Configuration" Version="1.0.1" />
+    <PackageReference Include="LogicBuilder.App.Maui.Forms.Parameters" Version="1.0.1" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="LogicBuilder.App.Maui.AutoMapperProfiles.Tests/LogicBuilder.App.Maui.AutoMapperProfiles.Tests.csproj" />
+  <Project Path="LogicBuilder.App.Maui.AutoMapperProfiles/LogicBuilder.App.Maui.AutoMapperProfiles.csproj" />
+</Solution>
