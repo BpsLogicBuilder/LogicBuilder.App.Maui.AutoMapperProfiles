@@ -2,8 +2,9 @@
 
 [![CI](https://github.com/BpsLogicBuilder/LogicBuilder.App.Maui.AutoMapperProfiles/actions/workflows/ci.yml/badge.svg)](https://github.com/BpsLogicBuilder/LogicBuilder.App.Maui.AutoMapperProfiles/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/BpsLogicBuilder/LogicBuilder.App.Maui.AutoMapperProfiles/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/BpsLogicBuilder/LogicBuilder.App.Maui.AutoMapperProfiles/actions/workflows/github-code-scanning/codeql)
-[![codecov](https://codecov.io/github/BpsLogicBuilder/LogicBuilder.App.Maui.AutoMapperProfiles/graph/badge.svg?token=0UJRC5MEGK)](https://codecov.io/github/BpsLogicBuilder/LogicBuilder.App.Maui.AutoMapperProfiles)
+[![codecov](https://codecov.io/github/BpsLogicBuilder/LogicBuilder.App.Maui.AutoMapperProfiles/graph/badge.svg?token=0UJRC5MEGK)](https://codecov.io/github/BpsLogicBuilder/c)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BpsLogicBuilder_LogicBuilder.App.Maui.AutoMapperProfiles&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=BpsLogicBuilder_LogicBuilder.App.Maui.AutoMapperProfiles)
+[![NuGet](https://img.shields.io/nuget/v/LogicBuilder.App.Maui.AutoMapperProfiles.svg)](https://www.nuget.org/packages/LogicBuilder.App.Maui.AutoMapperProfiles)
 
 ## Overview
 
